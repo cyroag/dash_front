@@ -22,12 +22,21 @@ function enviar(){
 
 function tratarResultado(resp){
     if (resp.status == 200){
-        alert("Usuario Identificado");
+        //alert("Usuario Identificado");
+        document.getElementById("resposta").innerHTML = "";
+        resp.json().then(res => efetivarLogin(res));
     }
-    else if(resp.status == 400){
-        alert("Usuario não foi encontrado em nossa base");
+    else if(resp.status == 404){
+        //alert("Usuario não foi encontrado em nossa base");
+        document.getElementById("resposta").innerHTML = "<h3>Usuário não encontrado</h3>";
     }
     else{
-        alert("Senha invalida");
+        //alert("Senha invalida");
+        document.getElementById("resposta").innerHTML = "<h3>Senha Inválida</h3>"
     }
+}
+
+function efetivarLogin(res){
+    localStorage.setItem("userDash",JSON.stringify(res));
+    window.location="home.html";
 }
